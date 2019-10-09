@@ -19,7 +19,6 @@ namespace GameMapTool
         static private string m_fileName ="";
         static public bool m_isNewFile { get; set; } = false;
         FileStream m_fileStream;
-        static public MonsterData m_MonsterBuffer;
         static public List<MonsterData> m_StageMonsters;
 
         public void SetFileName(string s)
@@ -28,7 +27,7 @@ namespace GameMapTool
         }
 
         string m_filePath { get;  } = Path.GetFullPath(
-               Path.Combine(Application.StartupPath + @"..\..\..\..\..\BubbleBobbleImitation\Include\DataFile\")
+               Path.Combine(Application.StartupPath + @"..\..\")
               );
         //파일을 로딩하면 세팅함
         public Form1()
@@ -94,7 +93,24 @@ namespace GameMapTool
                 wholeStageData.Map.Add(mapLine);
             }
 
-            wholeStageData.ToString();
+
+
+            foreach (MonsterData monData in m_StageMonsters)
+            {
+                Monster monster = new Monster();
+                monster.Type = (Int32)monData.type;
+                monster.StartXPos = monData.startPos.X;
+                monster.StartYPos = monData.startPos.Y;
+
+                foreach (MonsterAICommand monDtCmd in monData.Commands)
+                {
+                    monster.Commands.Add((Int32)monDtCmd);
+                }
+
+                wholeStageData.Monsters.Add(monster);
+            }
+
+           // wholeStageData.ToString();
             if(m_isNewFile == false)
             {
                 m_fileName = "";
@@ -105,8 +121,6 @@ namespace GameMapTool
                 m_fileStream = File.Create(m_filePath + m_fileName);
                 SaveFile(ref wholeStageData);
             }
-
-            
         }
 
 
@@ -128,17 +142,6 @@ namespace GameMapTool
         {
             using ( var output = File.Create(m_filePath + m_fileName) )
             {
-
-                for(int i=0; i<25; i++)
-                {
-                    System.Diagnostics.Debug.Write("["+i+"]: ");
-                    for (int j = 0; j < 25; j++)
-                    {
-                        System.Diagnostics.Debug.Write( data.Map[i].Block[j]+", ");
-                    }
-                    System.Diagnostics.Debug.WriteLine("");
-                }
-
                 data.WriteTo(output);
             }
         }
@@ -160,13 +163,15 @@ namespace GameMapTool
                 MonTypeComboBoxItem selectedMonType = (MonTypeComboBoxItem)editWindow.MonsterTypeSelector.SelectedItem;
                 monster.type = selectedMonType.Value;
                 monster.MonsterID = editWindow.MonsterIdInput.Text;
+                monster.startPos.X = Convert.ToInt32(editWindow.InitXPos.Text);
+                monster.startPos.Y = Convert.ToInt32(editWindow.InitYPos.Text);
+
                 foreach (MonsterAICommand cmd in editWindow.m_CmdDataList)
                 {
                     monster.Commands.Add(cmd);
                 }
                 m_StageMonsters.Add(monster);
                 MonsterList.Items.Add(monster.MonsterID);
-
             }
             editWindow.Dispose();
         }
@@ -201,6 +206,8 @@ namespace GameMapTool
                 MonTypeComboBoxItem selectedMonType = (MonTypeComboBoxItem)editWindow.MonsterTypeSelector.SelectedItem;
                 editMonster.type = selectedMonType.Value;
                 editMonster.MonsterID = editWindow.MonsterIdInput.Text;
+                editMonster.startPos.X = Convert.ToInt32(editWindow.InitXPos.Text);
+                editMonster.startPos.Y = Convert.ToInt32(editWindow.InitYPos.Text);
                 foreach (MonsterAICommand cmd in editWindow.m_CmdDataList)
                 {
                     editMonster.Commands.Add(cmd);
@@ -208,6 +215,11 @@ namespace GameMapTool
                 MessageBox.Show("수정이 정상적으로 완료되었습니다.");
             }
             editWindow.Dispose();
+        }
+
+        private void MenuLoad_Click(object sender, EventArgs e)
+        {
+            LoadFIle();
         }
     }
 

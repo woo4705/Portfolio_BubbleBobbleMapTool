@@ -19,6 +19,11 @@ namespace GameMapTool
         None = 0,
         Zen_chan = 1
     }
+    public struct StartPos
+    {
+        public int X;
+        public int Y;
+    }
 
     public class MonsterData
     {
@@ -26,12 +31,8 @@ namespace GameMapTool
         public MonsterType type { get; set; }
         public string MonsterID { get; set; } //고유의 값
 
-        public struct StartPos
-        {
-            public int i ;
-            public int j ;
-        }
-        StartPos startPos;
+        
+       public StartPos startPos;
 
         public MonsterData()
         {
@@ -44,8 +45,8 @@ namespace GameMapTool
         {
             MonsterID = "";
             type = MonsterType.None;
-            startPos.i = 0;
-            startPos.j = 0;
+            startPos.X = 0;
+            startPos.Y = 0;
             Commands.Clear();
         }
     }

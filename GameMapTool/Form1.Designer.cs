@@ -227,14 +227,15 @@
             // MenuSave
             // 
             this.MenuSave.Name = "MenuSave";
-            this.MenuSave.Size = new System.Drawing.Size(122, 22);
+            this.MenuSave.Size = new System.Drawing.Size(180, 22);
             this.MenuSave.Text = "저장하기";
             // 
             // MenuLoad
             // 
             this.MenuLoad.Name = "MenuLoad";
-            this.MenuLoad.Size = new System.Drawing.Size(122, 22);
+            this.MenuLoad.Size = new System.Drawing.Size(180, 22);
             this.MenuLoad.Text = "불러오기";
+            this.MenuLoad.Click += new System.EventHandler(this.MenuLoad_Click);
             // 
             // Status
             // 

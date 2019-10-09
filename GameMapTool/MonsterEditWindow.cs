@@ -68,8 +68,10 @@ namespace GameMapTool
             MonsterIdInput.Text = monster.MonsterID;
             MonsterIdInput.Enabled = false;
             MonsterTypeSelector.SelectedItem = monster.type;
+            InitXPos.Text = monster.startPos.X.ToString();
+            InitYPos.Text = monster.startPos.Y.ToString();
 
-            foreach(MonsterAICommand savedCmd in monster.Commands)
+            foreach (MonsterAICommand savedCmd in monster.Commands)
             {
                 m_CmdDataList.Add(savedCmd);
                 CommandList.Items.Add(savedCmd);

@@ -22,13 +22,17 @@ public static partial class StageDataReflection {
   static StageDataReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "Cg9TdGFnZURhdGEucHJvdG8iZQoOV2hvbGVTdGFnZURhdGESEwoLc3RhZ2Vf",
-          "bGV2ZWwYASABKAUSJAoDTWFwGAIgAygLMhcuV2hvbGVTdGFnZURhdGEuTWFw",
-          "TGluZRoYCgdNYXBMaW5lEg0KBWJsb2NrGAEgAygFYgZwcm90bzM="));
+          "Cg9TdGFnZURhdGEucHJvdG8i4QEKDldob2xlU3RhZ2VEYXRhEhMKC3N0YWdl",
+          "X2xldmVsGAEgASgFEiQKA01hcBgCIAMoCzIXLldob2xlU3RhZ2VEYXRhLk1h",
+          "cExpbmUSKQoITW9uc3RlcnMYCSADKAsyFy5XaG9sZVN0YWdlRGF0YS5Nb25z",
+          "dGVyGhgKB01hcExpbmUSDQoFYmxvY2sYASADKAUaTwoHTW9uc3RlchIMCgRU",
+          "eXBlGAUgASgFEhEKCXN0YXJ0WFBvcxgGIAEoBRIRCglzdGFydFlQb3MYByAB",
+          "KAUSEAoIQ29tbWFuZHMYCCADKAViBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-          new pbr::GeneratedClrTypeInfo(typeof(global::WholeStageData), global::WholeStageData.Parser, new[]{ "StageLevel", "Map" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::WholeStageData.Types.MapLine), global::WholeStageData.Types.MapLine.Parser, new[]{ "Block" }, null, null, null, null)})
+          new pbr::GeneratedClrTypeInfo(typeof(global::WholeStageData), global::WholeStageData.Parser, new[]{ "StageLevel", "Map", "Monsters" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::WholeStageData.Types.MapLine), global::WholeStageData.Types.MapLine.Parser, new[]{ "Block" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::WholeStageData.Types.Monster), global::WholeStageData.Types.Monster.Parser, new[]{ "Type", "StartXPos", "StartYPos", "Commands" }, null, null, null, null)})
         }));
   }
   #endregion
@@ -62,6 +66,7 @@ public sealed partial class WholeStageData : pb::IMessage<WholeStageData> {
   public WholeStageData(WholeStageData other) : this() {
     stageLevel_ = other.stageLevel_;
     map_ = other.map_.Clone();
+    monsters_ = other.monsters_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -91,6 +96,16 @@ public sealed partial class WholeStageData : pb::IMessage<WholeStageData> {
     get { return map_; }
   }
 
+  /// <summary>Field number for the "Monsters" field.</summary>
+  public const int MonstersFieldNumber = 9;
+  private static readonly pb::FieldCodec<global::WholeStageData.Types.Monster> _repeated_monsters_codec
+      = pb::FieldCodec.ForMessage(74, global::WholeStageData.Types.Monster.Parser);
+  private readonly pbc::RepeatedField<global::WholeStageData.Types.Monster> monsters_ = new pbc::RepeatedField<global::WholeStageData.Types.Monster>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public pbc::RepeatedField<global::WholeStageData.Types.Monster> Monsters {
+    get { return monsters_; }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
     return Equals(other as WholeStageData);
@@ -106,6 +121,7 @@ public sealed partial class WholeStageData : pb::IMessage<WholeStageData> {
     }
     if (StageLevel != other.StageLevel) return false;
     if(!map_.Equals(other.map_)) return false;
+    if(!monsters_.Equals(other.monsters_)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -114,6 +130,7 @@ public sealed partial class WholeStageData : pb::IMessage<WholeStageData> {
     int hash = 1;
     if (StageLevel != 0) hash ^= StageLevel.GetHashCode();
     hash ^= map_.GetHashCode();
+    hash ^= monsters_.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -132,6 +149,7 @@ public sealed partial class WholeStageData : pb::IMessage<WholeStageData> {
       output.WriteInt32(StageLevel);
     }
     map_.WriteTo(output, _repeated_map_codec);
+    monsters_.WriteTo(output, _repeated_monsters_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -144,6 +162,7 @@ public sealed partial class WholeStageData : pb::IMessage<WholeStageData> {
       size += 1 + pb::CodedOutputStream.ComputeInt32Size(StageLevel);
     }
     size += map_.CalculateSize(_repeated_map_codec);
+    size += monsters_.CalculateSize(_repeated_monsters_codec);
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -159,6 +178,7 @@ public sealed partial class WholeStageData : pb::IMessage<WholeStageData> {
       StageLevel = other.StageLevel;
     }
     map_.Add(other.map_);
+    monsters_.Add(other.monsters_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -176,6 +196,10 @@ public sealed partial class WholeStageData : pb::IMessage<WholeStageData> {
         }
         case 18: {
           map_.AddEntriesFrom(input, _repeated_map_codec);
+          break;
+        }
+        case 74: {
+          monsters_.AddEntriesFrom(input, _repeated_monsters_codec);
           break;
         }
       }
@@ -300,6 +324,212 @@ public sealed partial class WholeStageData : pb::IMessage<WholeStageData> {
             case 10:
             case 8: {
               block_.AddEntriesFrom(input, _repeated_block_codec);
+              break;
+            }
+          }
+        }
+      }
+
+    }
+
+    public sealed partial class Monster : pb::IMessage<Monster> {
+      private static readonly pb::MessageParser<Monster> _parser = new pb::MessageParser<Monster>(() => new Monster());
+      private pb::UnknownFieldSet _unknownFields;
+      [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+      public static pb::MessageParser<Monster> Parser { get { return _parser; } }
+
+      [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+      public static pbr::MessageDescriptor Descriptor {
+        get { return global::WholeStageData.Descriptor.NestedTypes[1]; }
+      }
+
+      [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+      pbr::MessageDescriptor pb::IMessage.Descriptor {
+        get { return Descriptor; }
+      }
+
+      [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+      public Monster() {
+        OnConstruction();
+      }
+
+      partial void OnConstruction();
+
+      [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+      public Monster(Monster other) : this() {
+        type_ = other.type_;
+        startXPos_ = other.startXPos_;
+        startYPos_ = other.startYPos_;
+        commands_ = other.commands_.Clone();
+        _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+      }
+
+      [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+      public Monster Clone() {
+        return new Monster(this);
+      }
+
+      /// <summary>Field number for the "Type" field.</summary>
+      public const int TypeFieldNumber = 5;
+      private int type_;
+      [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+      public int Type {
+        get { return type_; }
+        set {
+          type_ = value;
+        }
+      }
+
+      /// <summary>Field number for the "startXPos" field.</summary>
+      public const int StartXPosFieldNumber = 6;
+      private int startXPos_;
+      [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+      public int StartXPos {
+        get { return startXPos_; }
+        set {
+          startXPos_ = value;
+        }
+      }
+
+      /// <summary>Field number for the "startYPos" field.</summary>
+      public const int StartYPosFieldNumber = 7;
+      private int startYPos_;
+      [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+      public int StartYPos {
+        get { return startYPos_; }
+        set {
+          startYPos_ = value;
+        }
+      }
+
+      /// <summary>Field number for the "Commands" field.</summary>
+      public const int CommandsFieldNumber = 8;
+      private static readonly pb::FieldCodec<int> _repeated_commands_codec
+          = pb::FieldCodec.ForInt32(66);
+      private readonly pbc::RepeatedField<int> commands_ = new pbc::RepeatedField<int>();
+      [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+      public pbc::RepeatedField<int> Commands {
+        get { return commands_; }
+      }
+
+      [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+      public override bool Equals(object other) {
+        return Equals(other as Monster);
+      }
+
+      [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+      public bool Equals(Monster other) {
+        if (ReferenceEquals(other, null)) {
+          return false;
+        }
+        if (ReferenceEquals(other, this)) {
+          return true;
+        }
+        if (Type != other.Type) return false;
+        if (StartXPos != other.StartXPos) return false;
+        if (StartYPos != other.StartYPos) return false;
+        if(!commands_.Equals(other.commands_)) return false;
+        return Equals(_unknownFields, other._unknownFields);
+      }
+
+      [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+      public override int GetHashCode() {
+        int hash = 1;
+        if (Type != 0) hash ^= Type.GetHashCode();
+        if (StartXPos != 0) hash ^= StartXPos.GetHashCode();
+        if (StartYPos != 0) hash ^= StartYPos.GetHashCode();
+        hash ^= commands_.GetHashCode();
+        if (_unknownFields != null) {
+          hash ^= _unknownFields.GetHashCode();
+        }
+        return hash;
+      }
+
+      [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+      public override string ToString() {
+        return pb::JsonFormatter.ToDiagnosticString(this);
+      }
+
+      [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+      public void WriteTo(pb::CodedOutputStream output) {
+        if (Type != 0) {
+          output.WriteRawTag(40);
+          output.WriteInt32(Type);
+        }
+        if (StartXPos != 0) {
+          output.WriteRawTag(48);
+          output.WriteInt32(StartXPos);
+        }
+        if (StartYPos != 0) {
+          output.WriteRawTag(56);
+          output.WriteInt32(StartYPos);
+        }
+        commands_.WriteTo(output, _repeated_commands_codec);
+        if (_unknownFields != null) {
+          _unknownFields.WriteTo(output);
+        }
+      }
+
+      [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+      public int CalculateSize() {
+        int size = 0;
+        if (Type != 0) {
+          size += 1 + pb::CodedOutputStream.ComputeInt32Size(Type);
+        }
+        if (StartXPos != 0) {
+          size += 1 + pb::CodedOutputStream.ComputeInt32Size(StartXPos);
+        }
+        if (StartYPos != 0) {
+          size += 1 + pb::CodedOutputStream.ComputeInt32Size(StartYPos);
+        }
+        size += commands_.CalculateSize(_repeated_commands_codec);
+        if (_unknownFields != null) {
+          size += _unknownFields.CalculateSize();
+        }
+        return size;
+      }
+
+      [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+      public void MergeFrom(Monster other) {
+        if (other == null) {
+          return;
+        }
+        if (other.Type != 0) {
+          Type = other.Type;
+        }
+        if (other.StartXPos != 0) {
+          StartXPos = other.StartXPos;
+        }
+        if (other.StartYPos != 0) {
+          StartYPos = other.StartYPos;
+        }
+        commands_.Add(other.commands_);
+        _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+      }
+
+      [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+      public void MergeFrom(pb::CodedInputStream input) {
+        uint tag;
+        while ((tag = input.ReadTag()) != 0) {
+          switch(tag) {
+            default:
+              _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+              break;
+            case 40: {
+              Type = input.ReadInt32();
+              break;
+            }
+            case 48: {
+              StartXPos = input.ReadInt32();
+              break;
+            }
+            case 56: {
+              StartYPos = input.ReadInt32();
+              break;
+            }
+            case 66:
+            case 64: {
+              commands_.AddEntriesFrom(input, _repeated_commands_codec);
               break;
             }
           }
